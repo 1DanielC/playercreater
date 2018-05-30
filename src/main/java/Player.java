@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 public class Player {
     private static String TABLE = "PLAYER";
 
-
     public int id;
     public String name;
     public String player_name;
@@ -31,8 +30,8 @@ public class Player {
     public String age;
     public String alignment;
 
-    public Player(){
-
+    public Player(int id){
+        this.id = id;
     }
 
     public void insertPlayer(Connection con) {
@@ -45,14 +44,14 @@ public class Player {
             for(Field field: fields){
                 Object obj = field.get(this);
                 if(obj == null){
-                  values.add("null");
+                    values.add("null");
                 } else if(obj instanceof Integer){
                     values.add(obj.toString());
                 } else{
                     values.add(String.format("%s%s%s", "'", obj.toString(), "'"));
                 }
             }
-            String insertStatement = String.format("INSERT INTO %s (%s) VALUES (%s)", TABLE, String.join(", ", variables), String.join(", ", values));
+            String insertStatement = String.format("INSERT INTO %s (%s) VALUES (%s)", "PLAYER", String.join(", ", variables), String.join(", ", values));
             PreparedStatement statement = con.prepareStatement(insertStatement);
             statement.execute();
             int c = 0;
@@ -61,7 +60,6 @@ public class Player {
         } catch(SQLException e){
             System.err.println("Problem inserting record");
         }
-
     }
 
     public void updatePlayer(Connection con){
