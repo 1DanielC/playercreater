@@ -1,10 +1,8 @@
 package main.java;
 
-import main.java.db.PlayerDB;
 import main.java.objects.Player;
 
 import java.sql.*;
-import java.util.Properties;
 
 /**
  * Created by Daniel on 5/28/2018.
@@ -13,8 +11,7 @@ public class Fiddle {
     Connection con = null;
 
     public Fiddle(){
-        con = getConnection();
-        Player player = Player.generatePlayer(con);
+        Player player = Player.generate();
         player.setName("Gerald");
         player.setAge("17");
         player.setPlayerClass("Rogue");
@@ -27,31 +24,9 @@ public class Fiddle {
         player.setPlayer_name("Daniel");
         player.setPlayerSize("Small");
         player.setSkin("Tan");
-        player.updatePlayer(con);
-        closeConnection();
+        player.update();
     }
 
-
-    public Connection getConnection() {
-        Properties connectionProps = new Properties();
-        connectionProps.put("user", "pathfinder");
-        connectionProps.put("password", "pathfinder");
-        try {
-          con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", connectionProps);
-        } catch (SQLException e){
-            System.err.println("Error Connecting to Database");
-            System.exit(-1);
-        }
-        return con;
-    }
-
-    public void closeConnection(){
-        try {
-            con.close();
-        } catch (SQLException e){
-            System.err.println("Error Closing Database");
-        }
-    }
     public static void main(String[] args){
         new Fiddle();
     }
