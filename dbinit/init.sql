@@ -18,7 +18,7 @@ CREATE TABLE PATHFINDER.PLAYER(
 ,	age VARCHAR2(20)  
 ,	alignment VARCHAR2(20)  
 );
-CREATE SEQUENCE player_seq MINVALUE 1 START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE PATHFINDER.player_seq MINVALUE 1 START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE PATHFINDER.player_stats (
 	id NUMBER(5) not null primary key
@@ -28,16 +28,16 @@ CREATE TABLE PATHFINDER.player_stats (
 ,	intelligence NUMBER(3)   
 ,	wisdom NUMBER(3)   
 ,	charisma NUMBER(3)   
-,	hitpoints NUMBER(3)   
-,	dodge NUMBER(3)   
-,	natural NUMBER(3)   
-,	deflect NUMBER(3)   
 );
+CREATE SEQUENCE PATHFINDER.player_stats_seq MINVALUE 1 START WITH 1 INCREMENT BY 1;
+
 	
 CREATE TABLE PATHFINDER.player_perk (
 	player_id	NUMBER(5)  
-,	modifier	VARCHAR2(20)  
+,	modifier	VARCHAR2(20) 
+,	reason		VARCHAR(40) 
 );
+CREATE SEQUENCE PATHFINDER.player_stats_seq MINVALUE 1 START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE PATHFINDER.modifier(
 	id	NUMBER(5) not null primary key
@@ -46,6 +46,7 @@ CREATE TABLE PATHFINDER.modifier(
 ,	stat	VARCHAR2(20)   
 ,	value	NUMBER(5)   
 )
+CREATE SEQUENCE PATHFINDER.modifier_seq MINVALUE 1 START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE PATHFINDER.player_skills(
 	id	NUMBER(5) not null primary key
@@ -85,3 +86,15 @@ CREATE TABLE PATHFINDER.player_skills(
 	,swim	NUMBER(3)  
 	,use_magic_device	NUMBER(3)  
 );
+CREATE SEQUENCE PATHFINDER.player_skills_seq MINVALUE 1 START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE PATHFINDER.player_history(
+	id	NUMBER(5) not null primary key
+	,modifier VARCHAR2(20)
+	,stat VARCHAR2(20)
+	,reason VARCHAR2(50)
+	,value VARCHAR2(10)
+	,duration varchar2(20)
+);
+CREATE SEQUENCE PATHFINDER.player_history_seq MINVALUE 1 START WITH 1 INCREMENT BY 1;
+

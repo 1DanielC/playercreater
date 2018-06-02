@@ -1,5 +1,8 @@
 package main.java;
 
+import main.java.db.PlayerDB;
+import main.java.objects.Player;
+
 import java.sql.*;
 import java.util.Properties;
 
@@ -11,23 +14,23 @@ public class Fiddle {
 
     public Fiddle(){
         con = getConnection();
-        Player player = new Player(generateId());
-        player.insertPlayer(con);
+        Player player = Player.generatePlayer(con);
+        player.setName("Gerald");
+        player.setAge("17");
+        player.setPlayerClass("Rogue");
+        player.setAlignment("Chaotic Good");
+        player.setEyes("Green");
+        player.setGender("Unidentified");
+        player.setHair("Black");
+        player.setHeight(154);
+        player.setWeight(112);
+        player.setPlayer_name("Daniel");
+        player.setPlayerSize("Small");
+        player.setSkin("Tan");
+        player.updatePlayer(con);
         closeConnection();
     }
 
-    public int generateId() {
-        try {
-            PreparedStatement statement = con.prepareStatement("SELECT player_seq.nextval id from dual");
-            statement.execute();
-            ResultSet results = statement.getResultSet();
-            results.next();
-            return results.getInt("id");
-        } catch(SQLException e){
-            System.err.println("Error getting new ID from player");
-        }
-        return -1;
-    }
 
     public Connection getConnection() {
         Properties connectionProps = new Properties();
