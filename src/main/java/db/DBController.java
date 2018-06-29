@@ -45,7 +45,7 @@ public class DBController {
         return -1;
     }
 
-    private static String getTable(Class _class){
+    public static String getTable(Class _class){
         String name = _class.getSimpleName();
         String table = name.replaceAll("([A-Z])", "_$1").toUpperCase();
         return table.substring(1);

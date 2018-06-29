@@ -1,4 +1,4 @@
-package main.java.objects;
+package main.java.objects.enums;
 
 /**
  * Created by Daniel on 6/2/2018.

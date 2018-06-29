@@ -1,5 +1,8 @@
 package main.java.objects;
 
+import main.java.objects.enums.ABILITY;
+import main.java.objects.enums.SKILL;
+
 import java.util.HashMap;
 import java.util.Map;
 

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 /**
  * Created by Daniel on 6/2/2018.
  */
-public class PlayerStats {
+public class AbilityScores {
     public int id;
     public int strength;
     public int dexterity;
@@ -16,12 +16,16 @@ public class PlayerStats {
     public int wisdom;
     public int charisma;
 
-    public PlayerStats(int id){
+    public AbilityScores(){
+        this(0, 0, 0, 0, 0, 0);
+    }
+
+    public AbilityScores(int id){
         this(0, 0, 0, 0, 0, 0);
         this.id = id;
     }
 
-    public PlayerStats(int str, int dex, int con, int intel, int wis, int cha){
+    public AbilityScores(int str, int dex, int con, int intel, int wis, int cha){
         this.strength = str;
         this.dexterity = dex;
         this.constitution = con;
@@ -32,11 +36,11 @@ public class PlayerStats {
 
     public int getId(){return id;}
 
-    public static PlayerStats generate(int playerId) {
+    public static AbilityScores generate(int playerId) {
         try {
-            PlayerStats playerStats = new PlayerStats(playerId);
-            DBController.insertObject(playerStats);
-            return playerStats;
+            AbilityScores abilityScores = new AbilityScores(playerId);
+            DBController.insertObject(abilityScores);
+            return abilityScores;
         } catch (SQLException e){
             System.err.println(String.format("Cannot generate record: %s", e.getMessage()));
             return null;
@@ -48,18 +52,16 @@ public class PlayerStats {
     }
 
     public static int getModifierValue(int val){
-        if(val == 10){
-            return 0;
-        } else if( val > 10 && val <=13){
-            return 1;
+        if (val >= 10){
+            return (int)Math.ceil((val - 10) / 2);
         } else {
-            return (int)Math.ceil((double)(val - 11) / 2);
+            return (int)Math.ceil((val - 11) / 2);
         }
     }
 
     public static void main (String[] args){
-        for(int i = 0; i < 30; i++) {
-            System.out.println(i + ": " + PlayerStats.getModifierValue(i));
+        for(int i = -10; i < 30; i++) {
+            System.out.println(i + ": " + AbilityScores.getModifierValue(i));
         }
     }
 }

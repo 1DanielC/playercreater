@@ -1,6 +1,9 @@
 package main.java.objects;
 
 import main.java.db.DBController;
+import main.java.objects.enums.ABILITY;
+import main.java.objects.enums.DURATION;
+import main.java.objects.enums.SKILL;
 
 import java.lang.reflect.Field;
 import java.sql.SQLException;
@@ -49,7 +52,11 @@ public class PlayerSkills {
     public int use_magic_device;
 
     public PlayerSkills(int id){
+        this();
         this.id = id;
+    }
+
+    public PlayerSkills(){
         int acrobatics = 0;
         int appraise = 0;
         int bluff = 0;
@@ -115,4 +122,13 @@ public class PlayerSkills {
         }
     }
 
+    public void increaseSkillByAbility(SKILL skill, ABILITY ability, int abilityValue){
+        try{
+            Field player_skill = PlayerSkills.class.getDeclaredField(skill.name());
+            int currentValue = (int)player_skill.get(this);
+            player_skill.setInt(this, currentValue + abilityValue);
+        } catch(Exception e){
+            System.err.println(String.format("could not increase Skill: %s", e.getMessage()));
+        }
+    }
 }
